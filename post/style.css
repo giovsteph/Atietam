@@ -8,6 +8,12 @@ body {
     display: block;
 }
 
+#createAccountModal {
+    position: relative;
+    left: 50em;
+    text-decoration: none;
+}
+
 h1,
 h2,
 h3 {

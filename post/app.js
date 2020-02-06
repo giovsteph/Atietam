@@ -2,6 +2,7 @@ import { confirmPage, requestForm } from './main.js'
 
 //Cloud FIRESTORE
 const db = firebase.firestore();
+const auth = firebase.auth();
 
 const renderData = (doc) => {
     let div = document.createElement('div');
@@ -32,7 +33,6 @@ db.collection('requests').get().then((snapshot) => {
 });
 
 //saving data
-
 requestForm.addEventListener('submit', (e) => {
     e.preventDefault();
     db.collection("requests").add({
@@ -61,8 +61,37 @@ requestForm.addEventListener('submit', (e) => {
 
 
 
-
 // Crear entrada
 // const setDataInDB = (snapshot, document, _formInfo) => {
 //     return db.collection(snapshot).doc(document).set(_formInfo);
 // }
+
+
+/*****************************AUTHENTICATION*****************************/
+
+//login
+const loginForm = document.querySelector('#login-form');
+const btnLogin = document.querySelector('#loginBtn');
+btnLogin.addEventListener('click', (e) => {
+    e.preventDefault();
+    //get user info
+    const email = loginForm['email'].value;
+    const pwd = loginForm['pwd'].value;
+    console.log(email, pwd);
+    //falta agregar la parte del login
+    auth.signInWithEmailAndPassword(email, pwd).then((cred) => {
+        console.log(cred.user);
+    });
+    loginForm.reset();
+});
+
+
+
+//logout
+const logout = document.querySelector('#logout');
+logout.addEventListener('click', (e) => {
+    e.preventDefault();
+    auth.signOut().then(() => {
+        console.log('user is signed out');
+    });
+});
