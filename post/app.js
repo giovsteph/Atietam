@@ -1,4 +1,4 @@
-import { confirmPage, requestForm } from './main.js'
+import { confirmPage, requestForm, loginForm, loginBtn } from './main.js'
 
 //Cloud FIRESTORE
 const db = firebase.firestore();
@@ -70,28 +70,52 @@ requestForm.addEventListener('submit', (e) => {
 /*****************************AUTHENTICATION*****************************/
 
 //login
-const loginForm = document.querySelector('#login-form');
-const btnLogin = document.querySelector('#loginBtn');
-btnLogin.addEventListener('click', (e) => {
+loginBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    //get user info
-    const email = loginForm['email'].value;
-    const pwd = loginForm['pwd'].value;
-    console.log(email, pwd);
-    //falta agregar la parte del login
-    auth.signInWithEmailAndPassword(email, pwd).then((cred) => {
-        console.log(cred.user);
-    });
+    if (email.value != "" && pwd.value != "") {
+        const email = loginForm['email'].value;
+        const pwd = loginForm['pwd'].value;
+        console.log(email, pwd);
+
+        //falta agregar la parte del login
+        auth.signInWithEmailAndPassword(email, pwd).then((cred) => {
+            loginPage.setAttribute("style", "display:none;");
+            initPage.setAttribute("style", "display:block;");
+            console.log(cred.user);
+        }).catch(function(error) {
+            let errorCode = error.code;
+            let errorMsg = error.message;
+            console.log('error ' + errorCode + ':' + errorMsg);
+            if (errorCode == "auth/invalid-email") {
+                //it should print an error message in the square
+                //code below is from different project
+                alert('el correo está mal formatedo')
+            } else if (errorCode == 'auth/user-not-found') {
+                alert('el usuario no está registrado')
+            } else {
+                alert("Ocurrio un error en la autenticación [Email account creation].");
+            }
+        });
+    } else {
+        alert('all fields are required');
+    }
     loginForm.reset();
 });
-
 
 
 //logout
 const logout = document.querySelector('#logout');
 logout.addEventListener('click', (e) => {
     e.preventDefault();
-    auth.signOut().then(() => {
-        console.log('user is signed out');
-    });
+    let okToLogout = confirm('¿Deseas cerrar sesión?');
+    if (okToLogout) {
+        auth.signOut().then(() => {
+            //reload the page
+            setTimeout("location.reload(true);", 1500)
+            console.log('user is signed out');
+        });
+    } else {
+        console.log('no se deslogeó');
+        //stay on page
+    };
 });
