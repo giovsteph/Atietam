@@ -6,8 +6,8 @@ body {
 #initPage,
 #loginPage,
 #confirmPage,
-#usersPage {
-    display: block;
+#newUsersPage {
+    display: none;
 }
 
 #createAccountModal {
