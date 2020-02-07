@@ -1,11 +1,14 @@
-import { confirmPage, requestForm, loginForm, loginBtn } from './main.js'
+import { confirmPage, requestForm, loginForm, loginBtn, setUpUsers } from './main.js'
 
 //Cloud FIRESTORE
 const db = firebase.firestore();
 const auth = firebase.auth();
 
+
+/**************************************DATABASE****************************/
 const renderData = (doc) => {
     let div = document.createElement('div');
+    let paragraph = document.createElement('p');
     let name = document.createElement('p');
     let address = document.createElement('p');
 
@@ -14,15 +17,15 @@ const renderData = (doc) => {
 
     //add id
     div.setAttribute('data-id', doc.id);
+    paragraph.textContent = 'this is the data that has been submitted so far'
     name.textContent = doc.data().name;
     address.textContent = doc.data().phone;
 
+    div.append(paragraph);
     div.appendChild(name);
     div.appendChild(address);
     confirmPage.appendChild(div);
 };
-
-
 
 //getting data
 db.collection('requests').get().then((snapshot) => {
@@ -60,14 +63,47 @@ requestForm.addEventListener('submit', (e) => {
 });
 
 
-
-// Crear entrada
-// const setDataInDB = (snapshot, document, _formInfo) => {
-//     return db.collection(snapshot).doc(document).set(_formInfo);
-// }
-
-
 /*****************************AUTHENTICATION*****************************/
+
+//session listener
+auth.onAuthStateChanged(user => {
+    if (user) {
+        console.log('mail signed in', user.email);
+        loginPage.setAttribute("style", "display:none;");
+        initPage.setAttribute("style", "display:block;");
+        //getting users data
+        //this function may be helpful to see all the users in admin mode, right now, users can only be seen when logged in
+        db.collection('users').get().then((snapshot) => {
+            setUpUsers(snapshot.docs)
+        });
+    } else {
+        loginPage.setAttribute("style", "display:block;");
+        console.log('user is signed out');
+    }
+});
+
+//sign up - create new user
+let signUpForm = document.querySelector('#signup-form');
+let signUpBtn = document.querySelector('#signUpBtn');
+
+signUpBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    //get user info
+    const userName = signUpForm['name-new'].value;
+    const email = signUpForm['email-new'].value;
+    const pwd = signUpForm['pwd-new'].value;
+
+    // sign up the user
+    auth.createUserWithEmailAndPassword(email, pwd).then(cred => {
+        //close modal
+        $('#modalCreateUser').modal('hide');
+        signUpForm.reset();
+    });
+});
+
+
+
+
 
 //login
 loginBtn.addEventListener('click', (e) => {
@@ -75,7 +111,6 @@ loginBtn.addEventListener('click', (e) => {
     if (email.value != "" && pwd.value != "") {
         const email = loginForm['email'].value;
         const pwd = loginForm['pwd'].value;
-        console.log(email, pwd);
 
         //falta agregar la parte del login
         auth.signInWithEmailAndPassword(email, pwd).then((cred) => {
@@ -89,11 +124,13 @@ loginBtn.addEventListener('click', (e) => {
             if (errorCode == "auth/invalid-email") {
                 //it should print an error message in the square
                 //code below is from different project
-                alert('el correo está mal formatedo')
+                alert('el correo indicado no existe en la base de datos')
             } else if (errorCode == 'auth/user-not-found') {
-                alert('el usuario no está registrado')
+                alert('el usuario no está registrado en la base de datos')
+            } else if (errorCode == 'auth/wrong-password') {
+                alert('La contraseña introducida es incorrecta')
             } else {
-                alert("Ocurrio un error en la autenticación [Email account creation].");
+                alert("Ocurrio un error en la autenticación [Contacte a su administrador].");
             }
         });
     } else {
@@ -111,8 +148,8 @@ logout.addEventListener('click', (e) => {
     if (okToLogout) {
         auth.signOut().then(() => {
             //reload the page
+            //maybe the then here won't be needed
             setTimeout("location.reload(true);", 1500)
-            console.log('user is signed out');
         });
     } else {
         console.log('no se deslogeó');

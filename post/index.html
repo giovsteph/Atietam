@@ -15,11 +15,10 @@
 </head>
 
 <body>
-    <button id='logout'>Logout</button>
     <!--Falta acomodar este botón-->
     <div id="loginPage" class="container">
         <br><br>
-        <a id='createAccountModal' href="">Obtener credenciales</a>
+
         <!--TO DO: CREAR MODAL CON INSTRUCCIONES DE COMO OBTENER CREDENCIALES-->
         <div class="d-flex justify-content-center h-100">
 
@@ -50,9 +49,31 @@
                 </div>
             </div>
         </div>
+        <a id='createAccountModal' class="text-right" data-toggle="modal" data-target="#modalAccount" href="">Obtener credenciales</a>
+        <!-- Modal -->
+        <div class="modal fade" id="modalAccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="titleModal">Obtener Credenciales de Acceso</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id='modalText'>Para obtener credenciales de acceso, favor de ponerse en contacto con el administrador de la página al telefono 33-2263-9083</p>
+                        <img src="./imgs/gorilaLogo.png" style='height: 8rem; position: relative; left: 5em;' alt="gorilita">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="initPage">
+        <button id='logout'>Logout</button>
         <!--FORMA PARA LLENAR -->
         <form id="requestForm" class="form-horizontal">
             <h1>Formulario de Solicitud de Grúa</h1>
@@ -124,7 +145,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-sm-5" for="request">Entidad que Solicita el Servicio:</label>
+                            <label class="control-label col-sm-5" for="request">Autoridad que Solicita el Servicio:</label>
                             <div class="col-sm-3">
                                 <input type="text" class="form-control" name="requester" placeholder="Solicitante">
                             </div>
@@ -140,6 +161,46 @@
 
     <div id="confirmPage">
         <div id='container'></div>
+    </div>
+
+    <div>
+        <div id='userList'></div>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreateUser" data-whatever="@mdo">Crear Usuario Nuevo</button>
+
+        <div class="modal fade" id="modalCreateUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Usuario Nuevo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id='signup-form'>
+                            <div class="form-group">
+                                <label for="name" class="col-form-label">Nombre:</label>
+                                <input type='name' class="form-control" id="name-new" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="col-form-label">E-Mail:</label>
+                                <input type="text" class="form-control" id="email-new" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="col-form-label">Contraseña:</label>
+                                <input type='password' class="form-control" id="pwd-new" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" id='signUpBtn' class="btn btn-primary">Registrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
 

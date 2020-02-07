@@ -4,14 +4,19 @@ body {
 }
 
 #initPage,
-#confirmPage {
+#loginPage,
+#confirmPage,
+#usersPage {
     display: block;
 }
 
 #createAccountModal {
-    position: relative;
-    left: 50em;
+    position: absolute;
     text-decoration: none;
+}
+
+#modalText {
+    color: gray;
 }
 
 h1,

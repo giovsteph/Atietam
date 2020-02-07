@@ -19,6 +19,24 @@ let loginBtn = document.querySelector("#loginBtn");
 //     };
 // };
 
+const userList = document.querySelector('#userList')
+    //show users
+const setUpUsers = (data) => {
+    let html = '';
+    data.forEach(doc => {
+        const user = doc.data();
+        const li = `
+        <p>Registered Users</p>
+        <div>${user.mail}</div>
+
+     
+
+        `;
+        html += li;
+    });
+    userList.innerHTML = html;
+}
+
 
 
 //submit request form
@@ -34,5 +52,6 @@ export {
     confirmPage,
     requestForm,
     loginForm,
-    loginBtn
+    loginBtn,
+    setUpUsers
 }
