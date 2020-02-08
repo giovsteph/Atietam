@@ -71,6 +71,7 @@ input:focus {
 }
 
 .login_btn:hover {
+    size: 5em;
     color: black;
     background-color: #FFC312;
 }
@@ -96,4 +97,17 @@ input:focus {
 #display {
     text-align: center;
     font-size: 1.5rem;
+}
+
+.navBar {
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+.navBar:hover {
+    font-size: 1.3em;
+}
+
+.buttonContainer {
+    text-align: center;
 }

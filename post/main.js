@@ -85,5 +85,6 @@ export {
     setUpUsers,
     signUpForm,
     confirmBtn,
-    container
+    container,
+    initPage
 }

@@ -1,4 +1,4 @@
-import { confirmPage, requestForm, loginForm, loginBtn, setUpUsers, signUpForm, confirmBtn, container } from './main.js'
+import { confirmPage, requestForm, loginForm, loginBtn, setUpUsers, signUpForm, confirmBtn, container, initPage } from './main.js'
 
 //Cloud FIRESTORE
 const db = firebase.firestore();
@@ -51,7 +51,10 @@ confirmBtn.addEventListener('click', (e) => {
         color: requestForm.color.value,
         requester: requestForm.requester.value,
         creation: firebase.firestore.FieldValue.serverTimestamp(),
-        creator: user.email
+        creator: user.email,
+        model: requestForm.model.value,
+        brand: requestForm.brand.value,
+        maps: requestForm.maps.value
     });
     requestForm.service.value = '';
     requestForm.name.value = '';
@@ -63,6 +66,10 @@ confirmBtn.addEventListener('click', (e) => {
     requestForm.plate.value = '';
     requestForm.color.value = '';
     requestForm.requester.value = '';
+    requestForm.model.value = '';
+    requestForm.brand.value = '';
+    requestForm.maps.value = '';
+    alert('Los datos han sido guardados en la base de datos.')
     setTimeout("location.reload(true);", 500)
 });
 
@@ -162,7 +169,10 @@ logout.addEventListener('click', (e) => {
     let okToLogout = confirm('¿Deseas cerrar sesión?');
     if (okToLogout) {
         auth.signOut().then(() => {
-            //reload the page
+            //hide everything
+            initPage.setAttribute('style', 'display:none;')
+            confirmPage.setAttribute('style', 'display:none;')
+                //reload the page
             setTimeout("location.reload(true);", 500)
         });
     } else {

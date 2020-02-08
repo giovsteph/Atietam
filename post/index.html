@@ -73,7 +73,23 @@
     </div>
 
     <div id="initPage">
-        <button id='logout'>Logout</button>
+        <div class="pos-f-t">
+            <div class="collapse" id="navbarToggleExternalContent">
+                <div class=" p-4" style="background-color: rgba(255, 196, 18, .4);">
+                    <h5 class="text-white h4">ATIETAM</h5><br>
+                    <a id='logout' class='navBar'>Cerrar Sesión</a><br><br>
+                    <a id='seeUsers' class='navBar'>Ver Usuarios</a><br><br>
+                    <a id='seePosts' class='navBar'>Ver Solicitudes</a><br>
+                    <!--AQUI DEBEN DE IR LOS BOTONES DE VER USUARIOS Y DE VER POST-->
+                </div>
+            </div>
+            <nav class="navbar navbar-light " style="background-color: transparent;">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon" style= "background-image: url('./imgs/hamburguesa.png.png');"></span>
+              </button>
+            </nav>
+        </div>
+
         <!--FORMA PARA LLENAR -->
         <form id="requestForm" class="form-horizontal">
             <h1>Formulario de Solicitud de Grúa</h1>
@@ -104,67 +120,88 @@
                 <label class="control-label col-sm-2" for="address">Dirección:</label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" name="address" placeholder="Calle, numero, codigo postal">
-                </div><br>
-                <div class="form-group">
-                    <label class="control-label col-sm-2" for="ref">Referencia:</label>
-                    <div class="col-sm-6">
-                        <input type="text" class="form-control" name="ref" placeholder="Entre calles, enfrente de, etc...">
-                    </div><br>
-                    <div class="form-group">
-                        <label class="control-label col-sm-2" for="vehicleType">Tipo de Vehículo:</label>
-                        <div class="col-sm-3">
-                            <select class="form-control" name="vehicleType">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="maps">Link:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="maps" placeholder="Link de google maps">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="ref">Referencia:</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" name="ref" placeholder="Entre calles, enfrente de, etc...">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="vehicleType">Tipo de Vehículo:</label>
+                <div class="col-sm-3">
+                    <select class="form-control" name="vehicleType">
               <option>Pick-up</option>
               <option>Auto</option>
               <option>Motocicleta</option>
               <option>Otro</option>
             </select>
-                        </div>
-                    </div>
-                    <div class="radio form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Puede rodar" checked>
-                        <label class="form-check-label" for="exampleRadios1">
-              Puede rodar.
-            </label>
-                    </div>
-                    <div class="radio form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="No puede rodar">
-                        <label class="form-check-label" for="exampleRadios2">
-              No puede rodar.
-            </label>
-                    </div>
-                    <div class="form-group"><br>
-                        <label class="control-label col-sm-2" for="placas">Placas:</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" name="plate" placeholder="Placas">
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="color">Color:</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" name="color" placeholder="Color del vehículo">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-5" for="request">Autoridad que Solicita el Servicio:</label>
-                            <div class="col-sm-3">
-                                <input type="text" class="form-control" name="requester" placeholder="Solicitante">
-                            </div>
-                        </div>
-
-                        <button class="btn btn-outline-warning login_btn">Continuar</button>
-
-                    </div>
                 </div>
             </div>
-        </form>
+            <div class="radio form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Puede rodar" checked>
+                <label class="form-check-label" for="exampleRadios1">
+              Puede rodar.
+            </label>
+            </div>
+            <div class="radio form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="No puede rodar">
+                <label class="form-check-label" for="exampleRadios2">
+              No puede rodar.
+            </label>
+            </div>
+            <div class="form-group"><br>
+                <label class="control-label col-sm-2" for="placas">Placas:</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="plate" placeholder="Placas">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="marca">Marca:</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="brand" placeholder="p.ej. Honda">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="modelo">Modelo:</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="model" placeholder="p.ej. Civic">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-2" for="color">Color:</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="color" placeholder="Color del vehículo">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-sm-5" for="request">Autoridad que Solicita el Servicio:</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="requester" placeholder="Solicitante">
+                </div>
+            </div>
+            <br>
+            <div class='buttonContainer'>
+                <button class="btn btn-outline-warning login_btn btn-lg">Continuar</button></div>
+        </form><br>
     </div>
+
+
 
     <div id="confirmPage">
         <div id='container'>
         </div>
-        <button class="btn btn-outline-warning login_btn" id='goBack'>Volver</button>
-        <button class="btn btn-outline-warning login_btn" id='saveData'>Confirmar</button>
-
+        <div class='buttonContainer'>
+            <button class="btn btn-outline-warning login_btn btn-lg" id='goBack'>Volver</button>
+            <button class="btn btn-outline-warning login_btn btn-lg" id='saveData'>Confirmar</button>
+        </div>
     </div>
 
     <div id='newUsersPage'>
