@@ -1,4 +1,4 @@
-import { confirmPage, requestForm, loginForm, loginBtn, setUpUsers } from './main.js'
+import { confirmPage, requestForm, loginForm, loginBtn, setUpUsers, signUpForm } from './main.js'
 
 //Cloud FIRESTORE
 const db = firebase.firestore();
@@ -35,9 +35,11 @@ db.collection('requests').get().then((snapshot) => {
     })
 });
 
+
 //saving data
 requestForm.addEventListener('submit', (e) => {
     e.preventDefault();
+    let user = auth.currentUser;
     db.collection("requests").add({
         service: requestForm.service.value,
         name: requestForm.name.value,
@@ -48,7 +50,9 @@ requestForm.addEventListener('submit', (e) => {
         roll: requestForm.exampleRadios.value,
         plate: requestForm.plate.value,
         color: requestForm.color.value,
-        requester: requestForm.requester.value
+        requester: requestForm.requester.value,
+        creation: firebase.firestore.FieldValue.serverTimestamp(),
+        creator: user.email
     });
     requestForm.service.value = '';
     requestForm.name.value = '';
@@ -83,25 +87,34 @@ auth.onAuthStateChanged(user => {
 });
 
 //sign up - create new user
-let signUpForm = document.querySelector('#signup-form');
 let signUpBtn = document.querySelector('#signUpBtn');
 
 signUpBtn.addEventListener('click', (e) => {
     e.preventDefault();
     //get user info
-    const userName = signUpForm['name-new'].value;
-    const email = signUpForm['email-new'].value;
-    const pwd = signUpForm['pwd-new'].value;
+    const userName = signUpForm['newName'].value;
+    const email = signUpForm['newEmail'].value;
+    const pwd = signUpForm['newPwd'].value;
 
     // sign up the user
     auth.createUserWithEmailAndPassword(email, pwd).then(cred => {
         //close modal
         $('#modalCreateUser').modal('hide');
         signUpForm.reset();
+        //save data on database
+        //createUser(cred);
     });
 });
 
+//creates fields in database, but they are empty!!
 
+const createUser = (_cred) => {
+    db.collection('users').add({
+        email: signUpForm.newEmail.value,
+        password: signUpForm.newPwd.value,
+        username: signUpForm.newName.value
+    });
+};
 
 
 
@@ -148,8 +161,7 @@ logout.addEventListener('click', (e) => {
     if (okToLogout) {
         auth.signOut().then(() => {
             //reload the page
-            //maybe the then here won't be needed
-            setTimeout("location.reload(true);", 1500)
+            setTimeout("location.reload(true);", 500)
         });
     } else {
         console.log('no se deslogeó');

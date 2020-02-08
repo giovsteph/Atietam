@@ -6,6 +6,7 @@ let initPage = document.querySelector("#initPage");
 let requestForm = document.querySelector("#requestForm");
 let loginForm = document.querySelector('#login-form');
 let loginBtn = document.querySelector("#loginBtn");
+let signUpForm = document.querySelector('#signup-form');
 
 
 // //session handler
@@ -53,5 +54,6 @@ export {
     requestForm,
     loginForm,
     loginBtn,
-    setUpUsers
+    setUpUsers,
+    signUpForm
 }
