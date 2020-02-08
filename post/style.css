@@ -92,3 +92,8 @@ input:focus {
 .radio {
     margin-left: 1%;
 }
+
+#display {
+    text-align: center;
+    font-size: 1.5rem;
+}

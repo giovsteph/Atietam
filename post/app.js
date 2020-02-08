@@ -1,4 +1,4 @@
-import { confirmPage, requestForm, loginForm, loginBtn, setUpUsers, signUpForm } from './main.js'
+import { confirmPage, requestForm, loginForm, loginBtn, setUpUsers, signUpForm, confirmBtn, container } from './main.js'
 
 //Cloud FIRESTORE
 const db = firebase.firestore();
@@ -14,17 +14,16 @@ const renderData = (doc) => {
 
     name.setAttribute("id", "name");
     address.setAttribute("id", "address");
+    paragraph.setAttribute('id', 'display');
 
     //add id
     div.setAttribute('data-id', doc.id);
-    paragraph.textContent = 'this is the data that has been submitted so far'
+    paragraph.textContent = ''
     name.textContent = doc.data().name;
-    address.textContent = doc.data().phone;
+    address.textContent = doc.data().address;
 
     div.append(paragraph);
-    div.appendChild(name);
-    div.appendChild(address);
-    confirmPage.appendChild(div);
+    container.appendChild(div);
 };
 
 //getting data
@@ -37,7 +36,7 @@ db.collection('requests').get().then((snapshot) => {
 
 
 //saving data
-requestForm.addEventListener('submit', (e) => {
+confirmBtn.addEventListener('click', (e) => {
     e.preventDefault();
     let user = auth.currentUser;
     db.collection("requests").add({
@@ -64,6 +63,7 @@ requestForm.addEventListener('submit', (e) => {
     requestForm.plate.value = '';
     requestForm.color.value = '';
     requestForm.requester.value = '';
+    setTimeout("location.reload(true);", 500)
 });
 
 
@@ -103,18 +103,20 @@ signUpBtn.addEventListener('click', (e) => {
         signUpForm.reset();
         //save data on database
         //createUser(cred);
+        const createUser = (_cred) => {
+            db.collection('users').add({
+                username: userName,
+                email: email,
+                password: pwd
+            });
+        };
+
     });
 });
 
 //creates fields in database, but they are empty!!
 
-const createUser = (_cred) => {
-    db.collection('users').add({
-        email: signUpForm.newEmail.value,
-        password: signUpForm.newPwd.value,
-        username: signUpForm.newName.value
-    });
-};
+
 
 
 
