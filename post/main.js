@@ -123,5 +123,7 @@ export {
     container,
     initPage,
     navBar,
-    newUsersPage
+    newUsersPage,
+    requestsPage,
+    showRequestsBtn
 }

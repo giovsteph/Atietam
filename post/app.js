@@ -1,4 +1,4 @@
-import { confirmPage, requestForm, loginForm, loginBtn, setUpUsers, signUpForm, confirmBtn, container, initPage, navBar, newUsersPage } from './main.js'
+import { confirmPage, requestForm, loginForm, loginBtn, setUpUsers, signUpForm, confirmBtn, container, initPage, navBar, newUsersPage, requestsPage, showRequestsBtn } from './main.js'
 
 //Cloud FIRESTORE
 const db = firebase.firestore();
@@ -31,12 +31,16 @@ const renderData = (doc) => {
 };
 
 //getting data
-db.collection('requests').get().then((snapshot) => {
-    snapshot.docs.forEach(doc => {
-        renderData(doc);
-        console.log(doc.data());
-    })
+
+showRequestsBtn.addEventListener('click', () => {
+    db.collection('requests').get().then((snapshot) => {
+        snapshot.docs.forEach(doc => {
+            renderData(doc);
+            console.log(doc.data());
+        })
+    });
 });
+
 
 
 //saving data
@@ -86,6 +90,7 @@ auth.onAuthStateChanged(user => {
         console.log('mail signed in', user.email);
         loginPage.setAttribute("style", "display:none;");
         initPage.setAttribute("style", "display:block;");
+        navBar.setAttribute("style", "display:block;");
         //getting users data
         //this function may be helpful to see all the users in admin mode, right now, users can only be seen when logged in
         db.collection('users').get().then((snapshot) => {
@@ -93,6 +98,8 @@ auth.onAuthStateChanged(user => {
         });
     } else {
         loginPage.setAttribute("style", "display:block;");
+        navBar.setAttribute("style", "display:none;");
+        requestsPage.setAttribute("style", "display:none;");
         console.log('user is signed out');
     }
 });
@@ -179,6 +186,7 @@ logout.addEventListener('click', (e) => {
             confirmPage.setAttribute('style', 'display:none;');
             newUsersPage.setAttribute('style', 'display:none;');
             navBar.setAttribute('style', 'display:none;');
+            requestsPagesetAttribute('style', 'display:none;');
             //reload the page
         });
     } else {
