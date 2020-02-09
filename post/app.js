@@ -6,23 +6,27 @@ const auth = firebase.auth();
 
 
 /**************************************DATABASE****************************/
+
+
 const renderData = (doc) => {
     let div = document.createElement('div');
     let paragraph = document.createElement('p');
     let name = document.createElement('p');
-    let address = document.createElement('p');
+    let phone = document.createElement('p');
 
     name.setAttribute("id", "name");
-    address.setAttribute("id", "address");
-    paragraph.setAttribute('id', 'display');
+    phone.setAttribute("id", "phone");
+    paragraph.setAttribute('id', 'p');
 
     //add id
     div.setAttribute('data-id', doc.id);
     paragraph.textContent = ''
     name.textContent = doc.data().name;
-    address.textContent = doc.data().address;
+    phone.textContent = doc.data().phone;
 
-    div.append(paragraph);
+    div.appendChild(paragraph);
+    div.appendChild(name);
+    div.appendChild(phone);
     container.appendChild(div);
 };
 

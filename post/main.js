@@ -14,6 +14,8 @@ let seeUsersBtn = document.querySelector('#seeUsers');
 let newUsersPage = document.querySelector('#newUsersPage');
 let fillRequestBtn = document.querySelector('#requests');
 let navBar = document.querySelector('#navBar');
+let showRequestsBtn = document.querySelector('#seePosts');
+let requestsPage = document.querySelector('#requestsPage');
 
 // //session handler
 // const authHandler = () => {
@@ -76,21 +78,38 @@ goBackBtn.addEventListener('click', () => {
     setTimeout("location.reload(true);", 500)
 })
 
-
+//mostrar usuarios botón
 seeUsersBtn.addEventListener('click', () => {
     loginPage.setAttribute("style", "display:none;");
     initPage.setAttribute("style", "display:none;");
     navBar.setAttribute("style", "display:block;");
     newUsersPage.setAttribute("style", "display:block;");
+    requestsPage.setAttribute("style", "display:none;");
 });
 
-
+//regresar a llenar formato
 fillRequestBtn.addEventListener('click', () => {
     loginPage.setAttribute("style", "display:none;");
     initPage.setAttribute("style", "display:block;");
     navBar.setAttribute("style", "display:block;");
     newUsersPage.setAttribute("style", "display:none;");
+    requestsPage.setAttribute("style", "display:none;");
 });
+
+
+//mostrar requests button
+
+showRequestsBtn.addEventListener('click', () => {
+    console.log('dieron click');
+
+    loginPage.setAttribute("style", "display:none;");
+    initPage.setAttribute("style", "display:none;");
+    navBar.setAttribute("style", "display:block;");
+    newUsersPage.setAttribute("style", "display:none;");
+    requestsPage.setAttribute("style", "display:block;");
+})
+
+
 
 
 export {

@@ -6,8 +6,7 @@ body {
 #initPage,
 #loginPage,
 #confirmPage,
-#newUsersPage,
-#navBar {
+#newUsersPage {
     display: none;
 }
 
