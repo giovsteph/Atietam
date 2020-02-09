@@ -10,7 +10,10 @@ let loginBtn = document.querySelector("#loginBtn");
 let signUpForm = document.querySelector('#signup-form');
 let confirmBtn = document.querySelector('#saveData');
 let goBackBtn = document.querySelector('#goBack');
-
+let seeUsersBtn = document.querySelector('#seeUsers');
+let newUsersPage = document.querySelector('#newUsersPage');
+let fillRequestBtn = document.querySelector('#requests');
+let navBar = document.querySelector('#navBar');
 
 // //session handler
 // const authHandler = () => {
@@ -30,8 +33,8 @@ const setUpUsers = (data) => {
     data.forEach(doc => {
         const user = doc.data();
         const li = `
-        <p>Registered Users</p>
-        <div>${user.mail}</div>
+       
+        <div>${user.mail}</div><br>
         `;
         html += li;
     });
@@ -74,7 +77,20 @@ goBackBtn.addEventListener('click', () => {
 })
 
 
+seeUsersBtn.addEventListener('click', () => {
+    loginPage.setAttribute("style", "display:none;");
+    initPage.setAttribute("style", "display:none;");
+    navBar.setAttribute("style", "display:block;");
+    newUsersPage.setAttribute("style", "display:block;");
+});
 
+
+fillRequestBtn.addEventListener('click', () => {
+    loginPage.setAttribute("style", "display:none;");
+    initPage.setAttribute("style", "display:block;");
+    navBar.setAttribute("style", "display:block;");
+    newUsersPage.setAttribute("style", "display:none;");
+});
 
 
 export {
@@ -86,5 +102,7 @@ export {
     signUpForm,
     confirmBtn,
     container,
-    initPage
+    initPage,
+    navBar,
+    newUsersPage
 }

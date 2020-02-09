@@ -1,4 +1,4 @@
-import { confirmPage, requestForm, loginForm, loginBtn, setUpUsers, signUpForm, confirmBtn, container, initPage } from './main.js'
+import { confirmPage, requestForm, loginForm, loginBtn, setUpUsers, signUpForm, confirmBtn, container, initPage, navBar, newUsersPage } from './main.js'
 
 //Cloud FIRESTORE
 const db = firebase.firestore();
@@ -138,6 +138,7 @@ loginBtn.addEventListener('click', (e) => {
         auth.signInWithEmailAndPassword(email, pwd).then((cred) => {
             loginPage.setAttribute("style", "display:none;");
             initPage.setAttribute("style", "display:block;");
+            navBar.setAttribute("style", "display:block;");
             console.log(cred.user);
         }).catch(function(error) {
             let errorCode = error.code;
@@ -170,10 +171,11 @@ logout.addEventListener('click', (e) => {
     if (okToLogout) {
         auth.signOut().then(() => {
             //hide everything
-            initPage.setAttribute('style', 'display:none;')
-            confirmPage.setAttribute('style', 'display:none;')
-                //reload the page
-            setTimeout("location.reload(true);", 500)
+            initPage.setAttribute('style', 'display:none;');
+            confirmPage.setAttribute('style', 'display:none;');
+            newUsersPage.setAttribute('style', 'display:none;');
+            navBar.setAttribute('style', 'display:none;');
+            //reload the page
         });
     } else {
         console.log('no se deslogeó');

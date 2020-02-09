@@ -72,24 +72,25 @@
         </div>
     </div>
 
-    <div id="initPage">
-        <div class="pos-f-t">
-            <div class="collapse" id="navbarToggleExternalContent">
-                <div class=" p-4" style="background-color: rgba(255, 196, 18, .4);">
-                    <h5 class="text-white h4">ATIETAM</h5><br>
-                    <a id='logout' class='navBar'>Cerrar Sesión</a><br><br>
-                    <a id='seeUsers' class='navBar'>Ver Usuarios</a><br><br>
-                    <a id='seePosts' class='navBar'>Ver Solicitudes</a><br>
-                    <!--AQUI DEBEN DE IR LOS BOTONES DE VER USUARIOS Y DE VER POST-->
-                </div>
+    <div id='navBar' class="pos-f-t">
+        <div class="collapse" id="navbarToggleExternalContent">
+            <div class=" p-4" style="background-color: rgba(255, 196, 18, .4);">
+                <h5 class="text-white h4">ATIETAM</h5><br>
+                <a id='logout' class='navBar'>Cerrar Sesión</a><br><br>
+                <a id='seeUsers' class='navBar'>Ver Usuarios</a><br><br>
+                <a id='seePosts' class='navBar'>Ver Solicitudes</a><br><br>
+                <a id='requests' class='navBar'>Llenar Solicitud</a>
+                <!--AQUI DEBEN DE IR LOS BOTONES DE VER USUARIOS Y DE VER POST-->
             </div>
-            <nav class="navbar navbar-light " style="background-color: transparent;">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon" style= "background-image: url('./imgs/hamburguesa.png.png');"></span>
-              </button>
-            </nav>
         </div>
+        <nav class="navbar navbar-light " style="background-color: transparent;">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" style= "background-image: url('./imgs/hamburguesa.png.png');"></span>
+          </button>
+        </nav>
+    </div>
 
+    <div id="initPage">
         <!--FORMA PARA LLENAR -->
         <form id="requestForm" class="form-horizontal">
             <h1>Formulario de Solicitud de Grúa</h1>
@@ -107,31 +108,31 @@
             <div class="form-group">
                 <label class="control-label col-sm-2" for="name">Nombre:</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" name="name" placeholder="Nombre del Solicitante">
+                    <input type="text" class="form-control" name="name" placeholder="Nombre del Solicitante" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="phone">Telefono:</label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" name="phone" placeholder="Telefono">
+                    <input type="text" class="form-control" name="phone" placeholder="Telefono" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="address">Dirección:</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" name="address" placeholder="Calle, numero, codigo postal">
+                    <input type="text" class="form-control" name="address" placeholder="Calle, numero, codigo postal" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="maps">Link:</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" name="maps" placeholder="Link de google maps">
+                    <input type="text" class="form-control" name="maps" placeholder="Link de google maps" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="ref">Referencia:</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" name="ref" placeholder="Entre calles, enfrente de, etc...">
+                    <input type="text" class="form-control" name="ref" placeholder="Entre calles, enfrente de, etc..." required>
                 </div>
             </div>
             <div class="form-group">
@@ -160,31 +161,31 @@
             <div class="form-group"><br>
                 <label class="control-label col-sm-2" for="placas">Placas:</label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" name="plate" placeholder="Placas">
+                    <input type="text" class="form-control" name="plate" placeholder="Placas" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="marca">Marca:</label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" name="brand" placeholder="p.ej. Honda">
+                    <input type="text" class="form-control" name="brand" placeholder="p.ej. Honda" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="modelo">Modelo:</label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" name="model" placeholder="p.ej. Civic">
+                    <input type="text" class="form-control" name="model" placeholder="p.ej. Civic" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-2" for="color">Color:</label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" name="color" placeholder="Color del vehículo">
+                    <input type="text" class="form-control" name="color" placeholder="Color del vehículo" required>
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-sm-5" for="request">Autoridad que Solicita el Servicio:</label>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" name="requester" placeholder="Solicitante">
+                    <input type="text" class="form-control" name="requester" placeholder="Solicitante" required>
                 </div>
             </div>
             <br>
@@ -205,17 +206,22 @@
     </div>
 
     <div id='newUsersPage'>
-        <div id='userList'></div>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreateUser" data-whatever="@mdo">Crear Usuario Nuevo</button>
+        <h3>Usuarios Registrados</h3>
 
+        <div id='userList'>
+            <!--AQUI SE MUESTRAN LOS USUARIOS-->
+        </div>
+        <div class='buttonContainer'>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreateUser" data-whatever="@mdo">Crear Usuario Nuevo</button>
+        </div>
         <div class="modal fade" id="modalCreateUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Usuario Nuevo</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+              <span aria-hidden="true">&times;</span>
+            </button>
                     </div>
                     <div class="modal-body">
                         <form id='signup-form'>
@@ -240,8 +246,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 
 

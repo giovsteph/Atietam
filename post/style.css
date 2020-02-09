@@ -6,7 +6,8 @@ body {
 #initPage,
 #loginPage,
 #confirmPage,
-#newUsersPage {
+#newUsersPage,
+#navBar {
     display: none;
 }
 
@@ -109,5 +110,9 @@ input:focus {
 }
 
 .buttonContainer {
+    text-align: center;
+}
+
+#userList {
     text-align: center;
 }
