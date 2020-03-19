@@ -6,6 +6,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-app.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/7.6.2/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.2/firebase-functions.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
@@ -75,9 +76,11 @@
     <div id='navBar' class="pos-f-t">
         <div class="collapse" id="navbarToggleExternalContent">
             <div class=" p-4" style="background-color: rgba(255, 196, 18, .4);">
-                <h5 class="text-white h4">ATIETAM</h5><br>
+                <h5 class="text-white h4">ATIETAM</h5>
+                <span id='userLogged'>User here</span><br><br>
                 <a id='logout' class='navBar'>Cerrar Sesión</a><br><br>
-                <a id='seeUsers' class='navBar'>Ver Usuarios</a><br><br>
+                <a id='seeUsers' data-toggle="collapse" class='navBar'>Ver Usuarios</a><br><br>
+                <a id='seeAsociates' class='navBar'>Ver Asociados</a><br><br>
                 <a id='seePosts' class='navBar'>Ver Solicitudes</a><br><br>
                 <a id='requests' class='navBar'>Llenar Solicitud</a>
                 <!--AQUI DEBEN DE IR LOS BOTONES DE VER USUARIOS Y DE VER POST-->
@@ -188,6 +191,12 @@
                     <input type="text" class="form-control" name="requester" placeholder="Solicitante" required>
                 </div>
             </div>
+            <div class="form-group">
+                <label class="control-label col-sm-5" for="asociate">Asociado Asignado:</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="asociate" placeholder="Asociado" required>
+                </div>
+            </div>
             <br>
             <div class='buttonContainer'>
                 <button class="btn btn-outline-warning login_btn btn-lg">Continuar</button></div>
@@ -216,6 +225,13 @@
         <div id='userList'>
             <!--AQUI SE MUESTRAN LOS USUARIOS-->
         </div>
+
+        <!--MAKE ADMINS-->
+        <form class="align-self-center admin-actions" style="margin: 40px auto; max-width: 300px;">
+            <input type="email" placeholder="User email" id="admin-email" required/>
+            <button class="btn-sm  darken-2">Make Admin</button>
+        </form>
+
         <div class='buttonContainer'>
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreateUser" data-whatever="@mdo">Crear Usuario Nuevo</button>
         </div>
@@ -223,7 +239,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Usuario Nuevo</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Crear Usuario Capturista Nuevo</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -252,6 +268,72 @@
             </div>
         </div>
     </div>
+
+    <div id='asociatesPage'>
+        <h3>Asociados Registrados</h3>
+        <div id='asociatesList'>
+            <!--AQUI SE MUESTRAN LOS ASOCIADOS-->
+        </div>
+        <div class='buttonContainer'>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreateAsociate" data-whatever="@mdo">Crear Asociado Nuevo</button>
+        </div>
+        <div class="modal fade" id="modalCreateAsociate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Crear Asociado Nuevo</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id='createAsociateform'>
+                            <div class="form-group">
+                                <label for="id" class="col-form-label">ID:</label>
+                                <input type='number' class="form-control" id="newAsociateId" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="name" class="col-form-label">Nombre del Asociado:</label>
+                                <input type='name' class="form-control" id="newAsociateName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="address" class="col-form-label">Dirección:</label>
+                                <input type="text" class="form-control" id="newAsociateAddress" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" class="col-form-label">Telefono:</label>
+                                <input type='text' class="form-control" id="newAsociatePhone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="rfc" class="col-form-label">RFC:</label>
+                                <input type='text' class="form-control" id="newAsociateRFC" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="curp" class="col-form-label">CURP:</label>
+                                <input type='text' class="form-control" id="newAsociateCURP" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="nombreEmpresa" class="col-form-label">Nombre o Razón Social Empresa:</label>
+                                <input type='text' class="form-control" id="newAsociateEnterprise" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="units" class="col-form-label">Número de Unidades:</label>
+                                <input type='number' class="form-control" id="newAsociateUnits" required>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" id='createAsociateBtn' class="btn btn-primary">Registrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 
 
     <script>

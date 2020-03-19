@@ -7,7 +7,8 @@ body {
 #loginPage,
 #confirmPage,
 #newUsersPage,
-#navBar {
+#navBar,
+#asociatesPage {
     display: none;
 }
 
@@ -115,4 +116,12 @@ input:focus {
 
 #userList {
     text-align: center;
+}
+
+#username {
+    text-transform: capitalize;
+}
+
+#userLogged {
+    font-size: small;
 }

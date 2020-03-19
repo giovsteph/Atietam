@@ -1,49 +1,42 @@
-import { confirmPage, requestForm, loginForm, loginBtn, setUpUsers, signUpForm, confirmBtn, container, initPage, navBar, newUsersPage, requestsPage, showRequestsBtn } from './main.js'
+import { confirmPage, asociatesPage, requestForm, loginForm, loginBtn, adminEmail, adminForm, signUpBtn, createAsociateform, createAsBtn, signUpForm, confirmBtn, container, initPage, navBar, newUsersPage, requestsPage, showRequestsBtn } from './main.js'
+import { renderData, setupRequests } from './views/requests.js'
+import { setUpUsers } from './views/users.js'
+import { setUpUI } from './views/userUI.js'
 
 //Cloud FIRESTORE
 const db = firebase.firestore();
 const auth = firebase.auth();
+const functions = firebase.functions();
+
+let secondaryApp = firebase.initializeApp(firebaseConfig, "Secondary");
+
+/******************ADD ADMIN CLOUD FUNCTION******************+*/
+
+adminForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let adminEm = adminEmail.value;
+    console.log(adminEm)
+    const addAdminRole = functions.httpsCallable('addAdminRole');
+    addAdminRole({ email: adminEm }).then(result => {
+        console.log(result);
+    })
+})
+
+
 
 
 /**************************************DATABASE****************************/
 
-
-const renderData = (doc) => {
-    let div = document.createElement('div');
-    let paragraph = document.createElement('p');
-    let name = document.createElement('p');
-    let phone = document.createElement('p');
-
-    name.setAttribute("id", "name");
-    phone.setAttribute("id", "phone");
-    paragraph.setAttribute('id', 'p');
-
-    //add id
-    div.setAttribute('data-id', doc.id);
-    paragraph.textContent = ''
-    name.textContent = doc.data().name;
-    phone.textContent = doc.data().phone;
-
-    div.appendChild(paragraph);
-    div.appendChild(name);
-    div.appendChild(phone);
-    container.appendChild(div);
-};
-
-//getting data
-
+//getting requests data
 showRequestsBtn.addEventListener('click', () => {
-    db.collection('requests').get().then((snapshot) => {
-        snapshot.docs.forEach(doc => {
-            renderData(doc);
-            console.log(doc.data());
-        })
+    db.collection('requests').onSnapshot(snapshot => {
+        setupRequests(snapshot.docs);
+        renderData(snapshot.docs);
     });
 });
 
 
-
-//saving data
+//saving requests data
 confirmBtn.addEventListener('click', (e) => {
     e.preventDefault();
     let user = auth.currentUser;
@@ -77,7 +70,8 @@ confirmBtn.addEventListener('click', (e) => {
     requestForm.model.value = '';
     requestForm.brand.value = '';
     requestForm.maps.value = '';
-    alert('Los datos han sido guardados en la base de datos.')
+    alert('Los datos han sido guardados en la base de datos.');
+    //after this alert it should show all the data of the last request in a table format or so
     setTimeout("location.reload(true);", 500)
 });
 
@@ -86,59 +80,84 @@ confirmBtn.addEventListener('click', (e) => {
 
 //session listener
 auth.onAuthStateChanged(user => {
+    console.log(user)
     if (user) {
-        console.log('mail signed in', user.email);
-        loginPage.setAttribute("style", "display:none;");
-        initPage.setAttribute("style", "display:block;");
-        navBar.setAttribute("style", "display:block;");
-        //getting users data
-        //this function may be helpful to see all the users in admin mode, right now, users can only be seen when logged in
-        db.collection('users').get().then((snapshot) => {
+        //updating state according to changes on database
+        db.collection('users').onSnapshot(snapshot => {
             setUpUsers(snapshot.docs)
+            setUpUI(user)
         });
     } else {
-        loginPage.setAttribute("style", "display:block;");
-        navBar.setAttribute("style", "display:none;");
-        requestsPage.setAttribute("style", "display:none;");
-        console.log('user is signed out');
+        setUpUsers([])
+        setUpUI()
     }
 });
 
-//sign up - create new user
-let signUpBtn = document.querySelector('#signUpBtn');
+/*************************sign up - create new user******************/
 
 signUpBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    //get user info
     const userName = signUpForm['newName'].value;
     const email = signUpForm['newEmail'].value;
     const pwd = signUpForm['newPwd'].value;
 
-    // sign up the user
-    auth.createUserWithEmailAndPassword(email, pwd).then(cred => {
-        //close modal
+    secondaryApp.auth().createUserWithEmailAndPassword(email, pwd).then(cred => {
+
+        console.log("User " + cred.uid + " created successfully!");
+        //I don't know if the next statement is necessary 
+        secondaryApp.auth().signOut();
+
+
         $('#modalCreateUser').modal('hide');
         signUpForm.reset();
-        //save data on database
-        //createUser(cred);
+
+        //save info to database
         const createUser = (_cred) => {
+            console.log('se registró el usuario en la base de datos');
             db.collection('users').add({
+                uid: _cred.user.uid,
                 username: userName,
                 email: email,
                 password: pwd
             });
         };
+        createUser(cred)
+    });
+})
 
+/******************CREATE NEW ASOCIATE*********/
+
+createAsBtn.addEventListener('click', () => {
+
+    const idAs = createAsociateform['newAsociateId'].value;
+    const nameAs = createAsociateform['newAsociateName'].value;
+    const addressAs = createAsociateform['newAsociateAddress'].value;
+    const phoneAs = createAsociateform['newAsociatePhone'].value;
+    const rfcAs = createAsociateform['newAsociateRFC'].value;
+    const curpAs = createAsociateform['newAsociateCURP'].value;
+    const enterpriseAs = createAsociateform['newAsociateEnterprise'].value;
+    const unitsAs = createAsociateform['newAsociateUnits'].value;
+
+
+    return db.collection('asociates').add({
+        id: idAs,
+        asociateName: nameAs,
+        asociateAddress: addressAs,
+        phone: phoneAs,
+        RFC: rfcAs,
+        CURP: curpAs,
+        nombreEmpresa: enterpriseAs,
+        numeroUnidades: unitsAs
+    }).then(() => {
+        console.log('asociate created');
+        $('#modalCreateAsociate').modal('hide');
+        createAsociateform.reset();
     });
 });
 
-//creates fields in database, but they are empty!!
 
+/***************************************login****************************/
 
-
-
-
-//login
 loginBtn.addEventListener('click', (e) => {
     e.preventDefault();
     if (email.value != "" && pwd.value != "") {
@@ -150,7 +169,6 @@ loginBtn.addEventListener('click', (e) => {
             loginPage.setAttribute("style", "display:none;");
             initPage.setAttribute("style", "display:block;");
             navBar.setAttribute("style", "display:block;");
-            console.log(cred.user);
         }).catch(function(error) {
             let errorCode = error.code;
             let errorMsg = error.message;
@@ -186,7 +204,7 @@ logout.addEventListener('click', (e) => {
             confirmPage.setAttribute('style', 'display:none;');
             newUsersPage.setAttribute('style', 'display:none;');
             navBar.setAttribute('style', 'display:none;');
-            requestsPagesetAttribute('style', 'display:none;');
+            requestsPage.setAttribute('style', 'display:none;');
             //reload the page
         });
     } else {
