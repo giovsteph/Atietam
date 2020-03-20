@@ -1,14 +1,19 @@
-import { userLogged } from '../main.js'
+import { userLogged, adminItems } from '../main.js'
 
 
 
 const setUpUI = (user) => {
     if (user) {
+        if (user.admin) {
+            adminItems.forEach(item => item.style.display = 'block');
+        }
 
         //account info
         const html = `
-<div>${user.email}</div>
-`;
+            <div>${user.email}</div>
+            <div>${user.admin ? 'Administrador': 'Capturista'}</div>
+                    `;
+
         userLogged.innerHTML = html;
 
         //displays when user exists
@@ -18,6 +23,7 @@ const setUpUI = (user) => {
         navBar.setAttribute("style", "display:block;");
     } else {
         //hide account info
+        adminItems.forEach(item => item.style.display = 'none');
         userLogged.innerHTML = '';
 
 

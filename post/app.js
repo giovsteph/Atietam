@@ -80,12 +80,14 @@ confirmBtn.addEventListener('click', (e) => {
 
 //session listener
 auth.onAuthStateChanged(user => {
-    console.log(user)
     if (user) {
+        user.getIdTokenResult().then(idTokenResult => {
+            user.admin = idTokenResult.claims.admin;
+            setUpUI(user)
+        });
         //updating state according to changes on database
         db.collection('users').onSnapshot(snapshot => {
             setUpUsers(snapshot.docs)
-            setUpUI(user)
         });
     } else {
         setUpUsers([])

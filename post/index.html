@@ -73,25 +73,39 @@
         </div>
     </div>
 
-    <div id='navBar' class="pos-f-t">
-        <div class="collapse" id="navbarToggleExternalContent">
-            <div class=" p-4" style="background-color: rgba(255, 196, 18, .4);">
-                <h5 class="text-white h4">ATIETAM</h5>
-                <span id='userLogged'>User here</span><br><br>
-                <a id='logout' class='navBar'>Cerrar Sesión</a><br><br>
-                <a id='seeUsers' data-toggle="collapse" class='navBar'>Ver Usuarios</a><br><br>
-                <a id='seeAsociates' class='navBar'>Ver Asociados</a><br><br>
-                <a id='seePosts' class='navBar'>Ver Solicitudes</a><br><br>
-                <a id='requests' class='navBar'>Llenar Solicitud</a>
-                <!--AQUI DEBEN DE IR LOS BOTONES DE VER USUARIOS Y DE VER POST-->
-            </div>
-        </div>
-        <nav class="navbar navbar-light " style="background-color: transparent;">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon" style= "background-image: url('./imgs/hamburguesa.png.png');"></span>
-          </button>
-        </nav>
-    </div>
+    <!--AQUI IRA LA NUEVA NAV BAR-->
+
+    <nav id='navBar' class="navbar navbar-expand-lg navStyle">
+
+        <ul class="navbar-nav ml-auto ">
+            <li class="navItem">
+                <a id='requests' class="nav-link">HOME</a>
+            </li>
+            <li class="navItem">
+                <a id="seePosts" class="nav-link">Solicitudes</a>
+            </li>
+            <li class="navItem">
+                <a id='seeUsers' class="nav-link">Usuarios</a>
+            </li>
+
+            <li class="navItem">
+                <a id="seeAsociates" class="nav-link">Asociados</a>
+            </li>
+            <li class="dropdown navItem">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Usuario</a>
+                <div class="dropdown-menu">
+                    <span id='userLogged'>User here</span>
+                    <a class="dropdown-item" id="logout">Cerrar Sesión</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+
+
+    <!--AQUI IRA LA NUEVA NAV BAR-->
+
+
 
     <div id="initPage">
         <!--FORMA PARA LLENAR -->

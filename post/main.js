@@ -34,6 +34,7 @@ let adminForm = document.querySelector('.admin-actions');
 let navBar = document.querySelector('#navBar');
 let userLogged = document.querySelector('#userLogged');
 let adminEmail = document.querySelector('#admin-email');
+let adminItems = document.querySelectorAll('.admin');
 
 
 $('#navbarToggleExternalContent').click(function() {
@@ -141,5 +142,6 @@ export {
     createAsBtn,
     createAsociateform,
     adminForm,
-    adminEmail
+    adminEmail,
+    adminItems
 }
