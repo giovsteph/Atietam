@@ -4,10 +4,10 @@ import { userLogged, adminItems } from '../main.js'
 
 const setUpUI = (user) => {
     if (user) {
+        adminItems.forEach(item => item.style.display = 'none');
         if (user.admin) {
             adminItems.forEach(item => item.style.display = 'block');
         }
-
         //account info
         const html = `
             <div>${user.email}</div>
@@ -23,7 +23,7 @@ const setUpUI = (user) => {
         navBar.setAttribute("style", "display:block;");
     } else {
         //hide account info
-        adminItems.forEach(item => item.style.display = 'none');
+
         userLogged.innerHTML = '';
 
 

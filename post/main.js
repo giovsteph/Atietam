@@ -19,6 +19,7 @@ let fillRequestBtn = document.querySelector('#requests');
 let showRequestsBtn = document.querySelector('#seePosts');
 let signUpBtn = document.querySelector('#signUpBtn');
 let createAsBtn = document.querySelector('#createAsociateBtn');
+let deleteBtn = document.querySelector('#deleteRequestBtn');
 
 
 /*CONTAINERS*/
@@ -65,7 +66,8 @@ const showInfo = () => {
             'Puede rodar:   ' + requestForm.exampleRadios.value + '<br>' +
             'Placas:   ' + requestForm.plate.value + '<br>' +
             'Color:   ' + requestForm.color.value + '<br>' +
-            'Autoridad que solicita:   ' + requestForm.requester.value;
+            'Autoridad que solicita:   ' + requestForm.requester.value + '<br>' +
+            'Asociado asignado:   ' + requestForm.asociate.value;
     }
     //volver button
     //it's going to reload page, not ideal but works
@@ -143,5 +145,6 @@ export {
     createAsociateform,
     adminForm,
     adminEmail,
-    adminItems
+    adminItems,
+    deleteBtn
 }

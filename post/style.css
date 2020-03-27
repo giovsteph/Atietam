@@ -27,11 +27,6 @@ h3 {
     text-align: center;
 }
 
-.container {
-    height: 100%;
-    align-content: center;
-}
-
 .card {
     height: auto;
     margin-top: 10%;
@@ -120,8 +115,9 @@ input:focus {
 
 /*NAV BAR*/
 
-.navbar {
-    background-color: rgba(5, 17, 83, 0.5);
+#navBar {
+    margin-left: 55%;
+    background-color: rgba(5, 17, 83, 0);
 }
 
 .navItem {
@@ -153,4 +149,32 @@ input:focus {
 #userLogged {
     cursor: default;
     text-transform: none;
+}
+
+.containerReq {
+    width: 80%;
+    margin-left: 10%;
+    color: #FFC312;
+    text-align: left;
+    text-transform: capitalize;
+    border-width: 0.1vw;
+    border-style: solid;
+    border-color: #FFC312;
+}
+
+.btnEditAndDlt {
+    margin-left: 15px;
+}
+
+.btnEditAndDlt:hover {
+    text-decoration: underline;
+}
+
+.title {
+    margin-left: 15px;
+    color: white;
+}
+
+.requestItem {
+    margin-left: 15px;
 }

@@ -1,5 +1,5 @@
-import { confirmPage, asociatesPage, requestForm, loginForm, loginBtn, adminEmail, adminForm, signUpBtn, createAsociateform, createAsBtn, signUpForm, confirmBtn, container, initPage, navBar, newUsersPage, requestsPage, showRequestsBtn } from './main.js'
-import { renderData, setupRequests } from './views/requests.js'
+import { confirmPage, asociatesPage, requestForm, loginForm, loginBtn, deleteBtn, adminEmail, adminForm, signUpBtn, createAsociateform, createAsBtn, signUpForm, confirmBtn, container, initPage, navBar, newUsersPage, requestsPage, showRequestsBtn } from './main.js'
+import { setupRequests } from './views/requests.js'
 import { setUpUsers } from './views/users.js'
 import { setUpUI } from './views/userUI.js'
 
@@ -23,15 +23,13 @@ adminForm.addEventListener('submit', (e) => {
 })
 
 
-
-
 /**************************************DATABASE****************************/
 
 //getting requests data
 showRequestsBtn.addEventListener('click', () => {
     db.collection('requests').onSnapshot(snapshot => {
         setupRequests(snapshot.docs);
-        renderData(snapshot.docs);
+        // renderData(snapshot.docs);
     });
 });
 
@@ -40,7 +38,13 @@ showRequestsBtn.addEventListener('click', () => {
 confirmBtn.addEventListener('click', (e) => {
     e.preventDefault();
     let user = auth.currentUser;
+    const chars = '0123456789'
+    let autoId = ''
+    for (let i = 0; i < 6; i++) {
+        autoId += chars.charAt(Math.floor(Math.random() * chars.length))
+    }
     db.collection("requests").add({
+        key: autoId,
         service: requestForm.service.value,
         name: requestForm.name.value,
         phone: requestForm.phone.value,
@@ -55,7 +59,8 @@ confirmBtn.addEventListener('click', (e) => {
         creator: user.email,
         model: requestForm.model.value,
         brand: requestForm.brand.value,
-        maps: requestForm.maps.value
+        maps: requestForm.maps.value,
+        asociate: requestForm.asociate.value
     });
     requestForm.service.value = '';
     requestForm.name.value = '';
@@ -70,10 +75,11 @@ confirmBtn.addEventListener('click', (e) => {
     requestForm.model.value = '';
     requestForm.brand.value = '';
     requestForm.maps.value = '';
-    alert('Los datos han sido guardados en la base de datos.');
-    //after this alert it should show all the data of the last request in a table format or so
+    alert('Los datos han sido guardados en la base de datos. Folio: ' + autoId);
+    //after this alert it should show all the data of the last saved request in a table format or so, but right now reloads the page
     setTimeout("location.reload(true);", 500)
 });
+
 
 
 /*****************************AUTHENTICATION*****************************/
