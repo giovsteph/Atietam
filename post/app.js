@@ -42,8 +42,10 @@ adminForm.addEventListener('submit', (e) => {
 //getting requests data
 showRequestsBtn.addEventListener('click', () => {
     db.collection('requests').onSnapshot(snapshot => {
+        //clear container
+        container.innerHTML = '';
+        //fill container
         setupRequests(snapshot.docs);
-        // renderData(doc);
     });
 });
 

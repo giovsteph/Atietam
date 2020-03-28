@@ -2,20 +2,15 @@ import { db } from '../config.js'
 
 /***TEMPLATE REQUESTS***/
 const setupRequests = (data) => {
-
     if (data.length) {
         console.log(data)
-
         data.forEach(doc => {
-            //show requests if they exist
             renderData(doc)
         });
     } else {
         container.innerHTML = '<h5 class="center-align">No existen solicitudes registradas</h5>';
     }
 };
-
-
 
 
 /**RENDER REQUESTS DATA*/
@@ -29,6 +24,10 @@ const renderData = (doc) => {
     let button = document.createElement('button');
     button.setAttribute('id', 'deleteBtn');
     button.innerHTML = 'Eliminar';
+
+    let buttonEdit = document.createElement('button');
+    buttonEdit.setAttribute('id', 'editBtn');
+    buttonEdit.innerHTML = 'Agregar Asociado';
 
     const request = doc.data();
     const template =
@@ -67,6 +66,7 @@ const renderData = (doc) => {
 
     div.appendChild(paragraph);
     div.appendChild(button);
+    div.appendChild(buttonEdit);
     container.appendChild(div);
 
     //Delete requests
@@ -89,14 +89,20 @@ const renderData = (doc) => {
             //stay on page
         };
 
+    });
 
+    //Add Asociate
+    buttonEdit.addEventListener('click', (e) => {
+        e.stopPropagation();
+        console.log('dieron click en el botón de agregar asociado');
 
+        let newAs = prompt('Asignar Asociado:');
+        let id = e.target.parentElement.getAttribute('data-id');
 
-
-
+        db.collection('requests').doc(id).update({
+            asociate: newAs
+        });
     })
-
-
 
 };
 

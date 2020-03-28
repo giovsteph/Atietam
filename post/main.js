@@ -102,8 +102,6 @@ fillRequestBtn.addEventListener('click', () => {
 
 //mostrar requests button
 showRequestsBtn.addEventListener('click', () => {
-    console.log('dieron click');
-
     loginPage.setAttribute("style", "display:none;");
     initPage.setAttribute("style", "display:none;");
     navBar.setAttribute("style", "display:block;");
