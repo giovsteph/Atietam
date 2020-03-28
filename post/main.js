@@ -19,7 +19,7 @@ let fillRequestBtn = document.querySelector('#requests');
 let showRequestsBtn = document.querySelector('#seePosts');
 let signUpBtn = document.querySelector('#signUpBtn');
 let createAsBtn = document.querySelector('#createAsociateBtn');
-let deleteBtn = document.querySelector('#deleteRequestBtn');
+
 
 
 /*CONTAINERS*/
@@ -145,6 +145,5 @@ export {
     createAsociateform,
     adminForm,
     adminEmail,
-    adminItems,
-    deleteBtn
+    adminItems
 }

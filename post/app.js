@@ -1,16 +1,30 @@
-import { confirmPage, asociatesPage, requestForm, loginForm, loginBtn, deleteBtn, adminEmail, adminForm, signUpBtn, createAsociateform, createAsBtn, signUpForm, confirmBtn, container, initPage, navBar, newUsersPage, requestsPage, showRequestsBtn } from './main.js'
-import { setupRequests } from './views/requests.js'
-import { setUpUsers } from './views/users.js'
-import { setUpUI } from './views/userUI.js'
+import {
+    confirmPage,
+    asociatesPage,
+    requestForm,
+    loginForm,
+    loginBtn,
+    adminEmail,
+    adminForm,
+    signUpBtn,
+    createAsociateform,
+    createAsBtn,
+    signUpForm,
+    confirmBtn,
+    container,
+    initPage,
+    navBar,
+    newUsersPage,
+    requestsPage,
+    showRequestsBtn
+} from './main.js'
+import { setupRequests, renderData } from './views/requests.js';
+import { setUpUsers } from './views/users.js';
+import { setUpUI } from './views/userUI.js';
+import { db, auth, functions } from './config.js';
 
-//Cloud FIRESTORE
-const db = firebase.firestore();
-const auth = firebase.auth();
-const functions = firebase.functions();
 
-let secondaryApp = firebase.initializeApp(firebaseConfig, "Secondary");
-
-/******************ADD ADMIN CLOUD FUNCTION******************+*/
+/**************************ADD ADMIN CLOUD FUNCTION*******************/
 
 adminForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -19,8 +33,8 @@ adminForm.addEventListener('submit', (e) => {
     const addAdminRole = functions.httpsCallable('addAdminRole');
     addAdminRole({ email: adminEm }).then(result => {
         console.log(result);
-    })
-})
+    });
+});
 
 
 /**************************************DATABASE****************************/
@@ -29,7 +43,7 @@ adminForm.addEventListener('submit', (e) => {
 showRequestsBtn.addEventListener('click', () => {
     db.collection('requests').onSnapshot(snapshot => {
         setupRequests(snapshot.docs);
-        // renderData(snapshot.docs);
+        // renderData(doc);
     });
 });
 
@@ -42,7 +56,7 @@ confirmBtn.addEventListener('click', (e) => {
     let autoId = ''
     for (let i = 0; i < 6; i++) {
         autoId += chars.charAt(Math.floor(Math.random() * chars.length))
-    }
+    };
     db.collection("requests").add({
         key: autoId,
         service: requestForm.service.value,
@@ -77,8 +91,22 @@ confirmBtn.addEventListener('click', (e) => {
     requestForm.maps.value = '';
     alert('Los datos han sido guardados en la base de datos. Folio: ' + autoId);
     //after this alert it should show all the data of the last saved request in a table format or so, but right now reloads the page
-    setTimeout("location.reload(true);", 500)
+    setTimeout("location.reload(true);", 500);
 });
+
+
+/*DELETE*/
+// deleteBtn.addEventListener('click', () => {
+//     console.log('han dado click en el botón de eliminar');
+
+//     //delete from DB
+//     // db.collection("requests").doc(doc.id).delete().then(function() {
+//     //     console.log("Document successfully deleted!");
+//     // }).catch(function(error) {
+//     //     console.error("Error removing document: ", error);
+//     // });
+// })
+
 
 
 
