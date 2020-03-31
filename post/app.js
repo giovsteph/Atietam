@@ -83,7 +83,8 @@ confirmBtn.addEventListener('click', (e) => {
         asociate: requestForm.asociate.value,
         inventory: requestForm.inventory.value,
         time: requestForm.time.value,
-        comments: requestForm.comments.value
+        comments: requestForm.comments.value,
+        destination: requestForm.destination.value
 
     });
     requestForm.service.value = '';
@@ -99,6 +100,11 @@ confirmBtn.addEventListener('click', (e) => {
     requestForm.model.value = '';
     requestForm.brand.value = '';
     requestForm.maps.value = '';
+    requestForm.asociate.value = '';
+    requestForm.inventory.value = '';
+    requestForm.time.value = '';
+    requestForm.comments.value = '';
+    requestForm.destination.value = '';
     alert('Los datos han sido guardados en la base de datos. Folio: ' + autoId);
     //after this alert it should show all the data of the last saved request in a table format or so, but right now reloads the page
     setTimeout("location.reload(true);", 500);

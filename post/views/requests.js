@@ -88,6 +88,8 @@ const renderData = (doc) => {
                 <p class = 'requestInfo'>${request.inventory}</p>
                 <h5>Hora de Finalización:</h5>
                 <p class = 'requestInfo'>${request.time}</p>
+                <h5>Destino:</h5>
+                <p class = 'requestInfo'>${request.destination}</p>
                 <h5>Comentarios:</h5>
                 <p class = 'requestInfo'>${request.comments}</p>
                 </div>
