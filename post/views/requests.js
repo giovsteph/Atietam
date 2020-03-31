@@ -21,52 +21,68 @@ const renderData = (doc) => {
 
     let paragraph = document.createElement('p');
     paragraph.setAttribute('id', 'p');
+
+
+
     let button = document.createElement('button');
     button.setAttribute('id', 'deleteBtn');
+    button.setAttribute('class', 'admin btn btn-warning reqBtn')
     button.innerHTML = 'Eliminar';
 
     let buttonEdit = document.createElement('button');
     buttonEdit.setAttribute('id', 'editBtn');
+    buttonEdit.setAttribute('class', 'btn btn-warning reqBtn');
     buttonEdit.innerHTML = 'Agregar Asociado';
+
+    let buttonInventory = document.createElement('button');
+    buttonInventory.setAttribute('id', 'inventoryBtn');
+    buttonInventory.setAttribute('class', 'btn btn-warning reqBtn');
+    buttonInventory.innerHTML = 'Agregar Inventario';
 
     const request = doc.data();
     const template =
-        paragraph.textContent = `
-                Folio:
-                ${request.key}
-                Tipo de Servicio:
-                ${request.service}
-                Nombre del Solicitante:
-                ${request.name}
-                Telefono:
-                ${request.phone}
-                Dirección:
-                ${request.address}
-                Link de Google Maps:
-                ${request.maps}
-                Referencia:
-                ${request.reference}
-                Tipo de Vehiculo:
-                ${request.vehicleType}
-                ¿Rueda?:
-                ${request.roll}
-                Placas:
-                ${request.plate}
-                Marca:
-                ${request.brand}
-                Modelo:
-                ${request.model}
-                Color:
-                ${request.color}
-                Autoridad que Solicita:
-                ${request.requester}
-                Asociado Asignado:
-                ${request.asociate}
+        paragraph.innerHTML = `
+        <div id = containerReq>
+                <h5>Folio:</h5>
+                <p class = 'requestInfo'>${request.key}</p>
+                <h5>Tipo de Servicio:</h5>
+                <p class = 'requestInfo'>${request.service}</p>
+                <h5>Nombre del Solicitante:</h5>
+                <p class = 'requestInfo'>${request.name}</p>
+                <h5>Telefono:</h5>
+                <p class = 'requestInfo'>${request.phone}</p>
+                <h5>Dirección:</h5>
+                <p class = 'requestInfo'>${request.address}</p>
+                <h5>Link de Google Maps:</h5>
+                <p class = 'requestInfo'>${request.maps}</p>
+                <h5>Referencia:</h5>
+                <p class = 'requestInfo'>${request.reference}</p>
+                <h5>Tipo de Vehiculo:</h5>
+                <p class = 'requestInfo'>${request.vehicleType}</p>
+                <h5>¿Rueda?:</h5>
+                <p class = 'requestInfo'>${request.roll}</p>
+                <h5>Placas:</h5>
+                <p class = 'requestInfo'>${request.plate}</p>
+                <h5>Marca:</h5>
+                <p class = 'requestInfo'>${request.brand}</p>
+                <h5>Modelo:</h5>
+                <p class = 'requestInfo'>${request.model}</p>
+                <h5>Color:</h5>
+                <p class = 'requestInfo'>${request.color}</p>
+                <h5>Autoridad que Solicita:</h5>
+                <p class = 'requestInfo'>${request.requester}</p>
+                <h5>Asociado Asignado:</h5>
+                <p class = 'requestInfo'>${request.asociate}</p>
+                <h5>Inventario:</h5>
+                <p class = 'requestInfo'>${request.inventory}</p>
+                </div>
+                
                 `
 
     div.appendChild(paragraph);
     div.appendChild(button);
     div.appendChild(buttonEdit);
+    div.appendChild(buttonInventory);
     container.appendChild(div);
 
     //Delete requests
@@ -101,6 +117,20 @@ const renderData = (doc) => {
 
         db.collection('requests').doc(id).update({
             asociate: newAs
+        });
+    })
+
+
+    //Add Inventory
+    buttonInventory.addEventListener('click', (e) => {
+        e.stopPropagation();
+        console.log('dieron click en el botón de agregar inventario');
+
+        let newInv = prompt('Asignar Inventario:');
+        let id = e.target.parentElement.getAttribute('data-id');
+
+        db.collection('requests').doc(id).update({
+            inventory: newInv
         });
     })
 

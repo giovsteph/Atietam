@@ -16,9 +16,12 @@ import {
     navBar,
     newUsersPage,
     requestsPage,
-    showRequestsBtn
+    showRequestsBtn,
+    seeAsociatesBtn,
+    asociatesContainer
 } from './main.js'
 import { setupRequests, renderData } from './views/requests.js';
+import { setupAsociates } from './views/asociates.js'
 import { setUpUsers } from './views/users.js';
 import { setUpUI } from './views/userUI.js';
 import { db, auth, functions } from './config.js';
@@ -29,7 +32,8 @@ import { db, auth, functions } from './config.js';
 adminForm.addEventListener('submit', (e) => {
     e.preventDefault();
     let adminEm = adminEmail.value;
-    console.log(adminEm)
+    alert(adminEm + 'Has been made an admin')
+    adminForm.reset();
     const addAdminRole = functions.httpsCallable('addAdminRole');
     addAdminRole({ email: adminEm }).then(result => {
         console.log(result);
@@ -76,7 +80,8 @@ confirmBtn.addEventListener('click', (e) => {
         model: requestForm.model.value,
         brand: requestForm.brand.value,
         maps: requestForm.maps.value,
-        asociate: requestForm.asociate.value
+        asociate: requestForm.asociate.value,
+        inventory: requestForm.inventory.value
     });
     requestForm.service.value = '';
     requestForm.name.value = '';
@@ -97,17 +102,55 @@ confirmBtn.addEventListener('click', (e) => {
 });
 
 
-/*DELETE*/
-// deleteBtn.addEventListener('click', () => {
-//     console.log('han dado click en el botón de eliminar');
 
-//     //delete from DB
-//     // db.collection("requests").doc(doc.id).delete().then(function() {
-//     //     console.log("Document successfully deleted!");
-//     // }).catch(function(error) {
-//     //     console.error("Error removing document: ", error);
-//     // });
-// })
+//getting asociates data
+seeAsociatesBtn.addEventListener('click', () => {
+    db.collection('asociates').onSnapshot(snapshot => {
+        //clear container
+        asociatesContainer.innerHTML = '';
+        //fill container
+        setupAsociates(snapshot.docs);
+    });
+});
+
+
+/******************SAVE NEW ASOCIATE*********/
+
+createAsBtn.addEventListener('click', () => {
+
+    const idAs = createAsociateform['newAsociateId'].value;
+    const nameAs = createAsociateform['newAsociateName'].value;
+    const addressAs = createAsociateform['newAsociateAddress'].value;
+    const phoneAs = createAsociateform['newAsociatePhone'].value;
+    const rfcAs = createAsociateform['newAsociateRFC'].value;
+    const curpAs = createAsociateform['newAsociateCURP'].value;
+    const enterpriseAs = createAsociateform['newAsociateEnterprise'].value;
+    const unitsAs = createAsociateform['newAsociateUnits'].value;
+
+
+    return db.collection('asociates').add({
+        id: idAs,
+        asociateName: nameAs,
+        asociateAddress: addressAs,
+        phone: phoneAs,
+        RFC: rfcAs,
+        CURP: curpAs,
+        nombreEmpresa: enterpriseAs,
+        numeroUnidades: unitsAs
+    }).then(() => {
+        console.log('asociate created');
+        $('#modalCreateAsociate').modal('hide');
+        createAsociateform.reset();
+    });
+});
+
+
+
+
+
+
+
+
 
 
 
@@ -162,36 +205,6 @@ signUpBtn.addEventListener('click', (e) => {
         createUser(cred)
     });
 })
-
-/******************CREATE NEW ASOCIATE*********/
-
-createAsBtn.addEventListener('click', () => {
-
-    const idAs = createAsociateform['newAsociateId'].value;
-    const nameAs = createAsociateform['newAsociateName'].value;
-    const addressAs = createAsociateform['newAsociateAddress'].value;
-    const phoneAs = createAsociateform['newAsociatePhone'].value;
-    const rfcAs = createAsociateform['newAsociateRFC'].value;
-    const curpAs = createAsociateform['newAsociateCURP'].value;
-    const enterpriseAs = createAsociateform['newAsociateEnterprise'].value;
-    const unitsAs = createAsociateform['newAsociateUnits'].value;
-
-
-    return db.collection('asociates').add({
-        id: idAs,
-        asociateName: nameAs,
-        asociateAddress: addressAs,
-        phone: phoneAs,
-        RFC: rfcAs,
-        CURP: curpAs,
-        nombreEmpresa: enterpriseAs,
-        numeroUnidades: unitsAs
-    }).then(() => {
-        console.log('asociate created');
-        $('#modalCreateAsociate').modal('hide');
-        createAsociateform.reset();
-    });
-});
 
 
 /***************************************login****************************/

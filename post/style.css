@@ -151,15 +151,20 @@ input:focus {
     text-transform: none;
 }
 
-.containerReq {
-    width: 80%;
-    margin-left: 10%;
-    color: #FFC312;
-    text-align: left;
-    text-transform: capitalize;
-    border-width: 0.1vw;
-    border-style: solid;
-    border-color: #FFC312;
+#containerReq {
+    display: grid;
+    margin-left: 5%;
+    margin-right: 5%;
+    align-items: center;
+    align-self: center;
+    grid-template-columns: 40vw 40vw;
+    grid-column-gap: 5%;
+    grid-row-gap: 0.02%;
+    background: rgba(0, 0, 0, 0.6);
+    background-size: contain;
+    padding: 4% 2% 4%;
+    position: relative;
+    justify-self: center;
 }
 
 .btnEditAndDlt {
@@ -177,4 +182,36 @@ input:focus {
 
 .requestItem {
     margin-left: 15px;
+}
+
+#containerAsociates {
+    display: grid;
+    margin-left: 5%;
+    margin-right: 5%;
+    align-items: center;
+    align-self: center;
+    grid-template-columns: 40vw 40vw;
+    grid-column-gap: 5%;
+    grid-row-gap: 0.02%;
+    background: rgba(0, 0, 0, 0.6);
+    background-size: contain;
+    padding: 4% 2% 4%;
+    position: relative;
+    justify-self: center;
+}
+
+.reqBtn {
+    margin-left: 10px;
+}
+
+.requestInfo {
+    font-size: large;
+    color: white;
+    text-transform: capitalize;
+}
+
+#deleteBtn,
+#editBtn,
+#inventoryBtn {
+    margin-left: 18%;
 }

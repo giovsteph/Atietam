@@ -25,6 +25,7 @@ let createAsBtn = document.querySelector('#createAsociateBtn');
 /*CONTAINERS*/
 let container = document.querySelector('#container');
 let userList = document.querySelector('#userList');
+let asociatesContainer = document.querySelector('#asociatesList');
 
 /*OTHER*/
 let requestForm = document.querySelector("#requestForm");
@@ -143,5 +144,7 @@ export {
     createAsociateform,
     adminForm,
     adminEmail,
-    adminItems
+    adminItems,
+    seeAsociatesBtn,
+    asociatesContainer
 }

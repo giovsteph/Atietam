@@ -207,6 +207,12 @@
                     <input type="text" class="form-control" name="asociate" placeholder="Asociado">
                 </div>
             </div>
+            <div class="form-group">
+                <label class="control-label col-sm-5" for="inventory">Inventario:</label>
+                <div class="col-sm-3">
+                    <input type="text" class="form-control" name="inventory" placeholder="Inventario de la unidad">
+                </div>
+            </div>
             <br>
             <div class='buttonContainer'>
                 <button class="btn btn-outline-warning login_btn btn-lg">Continuar</button></div>
@@ -230,6 +236,11 @@
     </div>
 
     <div id='newUsersPage'>
+        <div class='buttonContainer'>
+            <button type="button" class="admin btn btn-primary" data-toggle="modal" data-target="#modalCreateUser" data-whatever="@mdo">Crear Usuario Nuevo</button>
+        </div>
+
+
         <h3>Usuarios Registrados</h3>
 
         <div id='userList'>
@@ -237,14 +248,11 @@
         </div>
 
         <!--MAKE ADMINS-->
-        <form class="align-self-center admin-actions" style="margin: 40px auto; max-width: 300px;">
+        <form class="align-self-center admin-actions admin">
             <input type="email" placeholder="User email" id="admin-email" required/>
-            <button class="btn-sm  darken-2">Make Admin</button>
+            <button class="btn btn-primary admin">Make Admin</button>
         </form>
 
-        <div class='buttonContainer'>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCreateUser" data-whatever="@mdo">Crear Usuario Nuevo</button>
-        </div>
         <div class="modal fade" id="modalCreateUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -280,13 +288,14 @@
     </div>
 
     <div id='asociatesPage'>
+        <div class='buttonContainer'>
+            <button type="button" class="admin btn btn-primary" data-toggle="modal" data-target="#modalCreateAsociate" data-whatever="@mdo">Crear Asociado Nuevo</button>
+        </div>
         <h3>Asociados Registrados</h3>
         <div id='asociatesList'>
             <!--AQUI SE MUESTRAN LOS ASOCIADOS-->
         </div>
-        <div class='buttonContainer'>
-            <button type="button" class="admin btn btn-primary" data-toggle="modal" data-target="#modalCreateAsociate" data-whatever="@mdo">Crear Asociado Nuevo</button>
-        </div>
+
         <div class="modal fade" id="modalCreateAsociate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
