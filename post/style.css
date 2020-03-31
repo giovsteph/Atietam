@@ -212,6 +212,8 @@ input:focus {
 
 #deleteBtn,
 #editBtn,
-#inventoryBtn {
-    margin-left: 18%;
+#inventoryBtn,
+#timeBtn,
+#commentsBtn {
+    margin-left: 5%;
 }

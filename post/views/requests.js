@@ -39,6 +39,17 @@ const renderData = (doc) => {
     buttonInventory.setAttribute('class', 'btn btn-warning reqBtn');
     buttonInventory.innerHTML = 'Agregar Inventario';
 
+    let buttonTime = document.createElement('button');
+    buttonTime.setAttribute('id', 'timeBtn');
+    buttonTime.setAttribute('class', 'btn btn-warning reqBtn');
+    buttonTime.innerHTML = 'Agregar Hora de Finalización';
+
+    let buttonComments = document.createElement('button');
+    buttonComments.setAttribute('id', 'commentsBtn');
+    buttonComments.setAttribute('class', 'btn btn-warning reqBtn');
+    buttonComments.innerHTML = 'Agregar Comentarios';
+
+
     const request = doc.data();
     const template =
         paragraph.innerHTML = `
@@ -75,6 +86,10 @@ const renderData = (doc) => {
                 <p class = 'requestInfo'>${request.asociate}</p>
                 <h5>Inventario:</h5>
                 <p class = 'requestInfo'>${request.inventory}</p>
+                <h5>Hora de Finalización:</h5>
+                <p class = 'requestInfo'>${request.time}</p>
+                <h5>Comentarios:</h5>
+                <p class = 'requestInfo'>${request.comments}</p>
                 </div>
                 
                 `
@@ -83,6 +98,8 @@ const renderData = (doc) => {
     div.appendChild(button);
     div.appendChild(buttonEdit);
     div.appendChild(buttonInventory);
+    div.appendChild(buttonTime);
+    div.appendChild(buttonComments);
     container.appendChild(div);
 
     //Delete requests
@@ -132,8 +149,33 @@ const renderData = (doc) => {
         db.collection('requests').doc(id).update({
             inventory: newInv
         });
-    })
+    });
 
+    //add time
+    buttonTime.addEventListener('click', (e) => {
+        e.stopPropagation();
+        console.log('dieron click en el botón de agregar hora');
+
+        let newTime = prompt('Asignar Hora de Finalización:');
+        let id = e.target.parentElement.getAttribute('data-id');
+
+        db.collection('requests').doc(id).update({
+            time: newTime
+        });
+    });
+
+    //add comments
+    buttonComments.addEventListener('click', (e) => {
+        e.stopPropagation();
+        console.log('dieron click en el botón de agregar comentario');
+
+        let newComments = prompt('Asignar Comentario:');
+        let id = e.target.parentElement.getAttribute('data-id');
+
+        db.collection('requests').doc(id).update({
+            comments: newComments
+        });
+    });
 };
 
 export {

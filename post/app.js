@@ -81,7 +81,10 @@ confirmBtn.addEventListener('click', (e) => {
         brand: requestForm.brand.value,
         maps: requestForm.maps.value,
         asociate: requestForm.asociate.value,
-        inventory: requestForm.inventory.value
+        inventory: requestForm.inventory.value,
+        time: requestForm.time.value,
+        comments: requestForm.comments.value
+
     });
     requestForm.service.value = '';
     requestForm.name.value = '';
