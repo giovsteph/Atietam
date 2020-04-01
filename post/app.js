@@ -24,7 +24,7 @@ import { setupRequests, renderData } from './views/requests.js';
 import { setupAsociates } from './views/asociates.js'
 import { setUpUsers } from './views/users.js';
 import { setUpUI } from './views/userUI.js';
-import { db, auth, functions } from './config.js';
+import { db, auth, functions, secondaryApp } from './config.js';
 
 
 /**************************ADD ADMIN CLOUD FUNCTION*******************/
@@ -265,7 +265,6 @@ logout.addEventListener('click', (e) => {
             newUsersPage.setAttribute('style', 'display:none;');
             navBar.setAttribute('style', 'display:none;');
             requestsPage.setAttribute('style', 'display:none;');
-            //reload the page
         });
     } else {
         console.log('no se deslogeó');

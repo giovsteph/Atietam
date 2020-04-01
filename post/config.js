@@ -23,5 +23,6 @@ let secondaryApp = firebase.initializeApp(firebaseConfig, "Secondary");
 export {
     db,
     auth,
-    functions
+    functions,
+    secondaryApp
 }

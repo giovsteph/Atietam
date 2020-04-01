@@ -20,8 +20,6 @@ let showRequestsBtn = document.querySelector('#seePosts');
 let signUpBtn = document.querySelector('#signUpBtn');
 let createAsBtn = document.querySelector('#createAsociateBtn');
 
-
-
 /*CONTAINERS*/
 let container = document.querySelector('#container');
 let userList = document.querySelector('#userList');
@@ -78,9 +76,6 @@ const showInfo = () => {
 goBackBtn.addEventListener('click', () => {
     setTimeout("location.reload(true);", 500)
 })
-
-
-
 
 
 

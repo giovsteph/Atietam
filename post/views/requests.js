@@ -22,8 +22,6 @@ const renderData = (doc) => {
     let paragraph = document.createElement('p');
     paragraph.setAttribute('id', 'p');
 
-
-
     let button = document.createElement('button');
     button.setAttribute('id', 'deleteBtn');
     button.setAttribute('class', 'admin btn btn-warning reqBtn')
