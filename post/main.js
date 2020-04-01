@@ -68,7 +68,10 @@ const showInfo = () => {
             'Placas:   ' + requestForm.plate.value + '<br>' +
             'Color:   ' + requestForm.color.value + '<br>' +
             'Autoridad que solicita:   ' + requestForm.requester.value + '<br>' +
-            'Asociado asignado:   ' + requestForm.asociate.value;
+            'Asociado asignado:   ' + requestForm.asociate.value + '<br>' +
+            'Inventario: ' + requestForm.inventory.value + '<br>' +
+            'Destino: ' + requestForm.destination.value + '<br>' +
+            'Comentarios: ' + requestForm.comments.value;
     }
     //volver button
     //it's going to reload page, not ideal but works
@@ -109,6 +112,7 @@ showRequestsBtn.addEventListener('click', () => {
     newUsersPage.setAttribute("style", "display:none;");
     requestsPage.setAttribute("style", "display:block;");
     asociatesPage.setAttribute("style", "display:none;");
+    confirmPage.setAttribute('style', 'display:none;');
 })
 
 //mostrar usuarios botón
